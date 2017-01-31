@@ -24,6 +24,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 
 public class CookbookHelper {
+    
+    
 
     public static Repository openJGitCookbookRepository() throws IOException {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();

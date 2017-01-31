@@ -18,6 +18,7 @@ package org.dstadler.jgit.porcelain;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -29,13 +30,31 @@ import org.eclipse.jgit.api.errors.GitAPIException;
  *
  * @author dominik.stadler at gmx.at
  */
-public class CloneRemoteRepository {
+public class CloneTRemoteRepository2 {
 
-    private static final String REMOTE_URL = "https://github.com/github/testrepo.git";
+    private static final String REMOTE_URL = "https://github.com/tgkprog2/testRepo.git";
+    private static final File LOCAL_DIR_ROOT = new File ("/Users/tusharkapila/u/w/jgits/lcl1/");
 
     public static void main(String[] args) throws IOException, GitAPIException {
         // prepare a new folder for the cloned repository
-        File localPath = File.createTempFile("TestGitRepository", "");
+        String repoName = "parseErrorInGetRepoName";
+        String projectName = "NotDterminded";
+        
+        {
+            //TODO get tokens of name and project, from API
+            String l1 = null;
+            StringTokenizer st = new StringTokenizer(REMOTE_URL, "/");
+            while(st.hasMoreTokens()){
+                l1 = repoName;
+                repoName = st.nextToken();
+            }
+            repoName = repoName.replace(".git", "");//remove '.git' from URL end 
+            projectName = l1;
+            
+        }
+        File f  = new File(LOCAL_DIR_ROOT, projectName);
+        f.mkdirs();
+        File localPath = File.createTempFile(repoName, "_jgit", f);
         if(!localPath.delete()) {
             throw new IOException("Could not delete temporary file " + localPath);
         }
